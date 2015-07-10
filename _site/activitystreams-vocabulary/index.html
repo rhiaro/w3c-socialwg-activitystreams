@@ -1,7 +1,3 @@
----
-redirect_from:
-  - activitystreams2-vocabulary.html
----
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,21 +7,20 @@ redirect_from:
   <script class="remove">
   var respecConfig = {
     specStatus: "ED",
-    edDraftURI: "http://jasnell.github.io/w3c-socialwg-activitystreams/activitystreams-vocabulary/",
+    edDraftURI: "http://jasnell.github.io/w3c-socialwg-activitystreams/activitystreams2-vocabulary.html",
     shortName: "activitystreams-vocabulary",
     editors: [
       {
         name: "James M Snell",
-        url: "http://jasnell.me",
+        url: "http://chmod777self.com",
         company: "IBM",
-        companyUrl: "http://ibm.com",
-        w3cid:"26988"
+        companyUrl: "http://ibm.com"
       }
     ],
     additionalCopyrightHolders: ["Activity Streams Working Group", "IBM"],
     maxTocLevel: 2,
-    previousMaturity: "WD",
-    previousPublishDate:  "2015-07-22",
+    previousMaturity: "FPWD",
+    previousPublishDate:  "2014-10-23",
     wg: "Social Web Working Group",
     wgURI: "http://www.w3.org/Social/WG",
     wgPublicList: "public-socialweb",
@@ -7134,7 +7129,7 @@ _:b0 a as:Profile ;
           <code><a>Create</a></code> activity:
         </p>
 
-        <div id="ex181-jsonldb" style="display: block;">
+        <div id="ex181-jsonld" style="display: block;">
 <pre class="example highlight json">{
   "@context": "http://www.w3.org/ns/activitystreams",
   "@type": "Create",
@@ -7324,7 +7319,7 @@ _:b0 a as:Profile ;
           for instance, be used to identify a location simply by name:
         </p>
 
-        <div id="ex182-jsonldb" style="display: block;">
+        <div id="ex182-jsonld" style="display: block;">
 <pre class="example highlight json">{
   "@context": "http://www.w3.org/ns/activitystreams",
   "@type": "Place",
@@ -16621,12 +16616,12 @@ _:b0 a as:Relationship ;
 
       <tbody>
         <tr>
-          <td rowspan="4" ><dfn title="relationship-term">relationship</dfn></td>
+          <td rowspan="5" ><dfn title="relationship-term">relationship</dfn></td>
           <td  style="width: 10%">URI:</td>
           <td>
             <code>http://www.w3.org/ns/activitystreams#relationship</code>
           </td>
-          <td rowspan="4">
+          <td rowspan="5">
             <div class="nanotabs">
               <ul>
                 <li><a href="#ex22c-jsonld" class="selected">JSON-LD</a></li>
@@ -16735,12 +16730,12 @@ _:b0 a as:Relationship ;
 
       <tbody>
         <tr>
-          <td rowspan="5" ><dfn title="describes">describes</dfn></td>
+          <td rowspan="6" ><dfn title="describes">describes</dfn></td>
           <td  style="width: 10%">URI:</td>
           <td>
             <code>http://www.w3.org/ns/activitystreams#describes</code>
           </td>
-          <td rowspan="5">
+          <td rowspan="6">
             <div class="nanotabs">
               <ul>
                 <li><a href="#ex185-jsonld" class="selected">JSON-LD</a></li>
@@ -16798,7 +16793,7 @@ _:b0 a as:Profile ;
     a as:Person ;
       as:displayName "Sally"
   },
-  as:url &lt;http://sally.example.org&gt; .</pre>
+  as:url <http://sally.example.org> .</pre>
   </div>
 </div>
 </td>
