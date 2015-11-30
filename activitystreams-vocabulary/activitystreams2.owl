@@ -117,7 +117,7 @@ as:current a owl:FunctionalProperty ,
   rdfs:domain as:Collection ;
   rdfs:range [
     a owl:Class ;
-    owl:unionOf ( as:Collection as:Link )
+    owl:unionOf ( as:CollectionPage as:Link )
   ] .
 
 as:first a owl:FunctionalProperty ,
@@ -126,7 +126,7 @@ as:first a owl:FunctionalProperty ,
   rdfs:domain as:Collection ;
   rdfs:range [
     a owl:Class ;
-    owl:unionOf ( as:Collection as:Link )
+    owl:unionOf ( as:CollectionPage as:Link )
   ] .
 
 as:generator a owl:ObjectProperty ;
@@ -181,7 +181,7 @@ as:last a owl:FunctionalProperty ,
   rdfs:domain as:Collection ;
   rdfs:range [
     a owl:Class ;
-    owl:unionOf ( as:Collection as:Link )
+    owl:unionOf ( as:CollectionPage as:Link )
   ] .
 
 as:location a owl:ObjectProperty ;
@@ -195,10 +195,10 @@ as:location a owl:ObjectProperty ;
 as:next a owl:FunctionalProperty ,
           owl:ObjectProperty ;
   rdfs:label "next"@en ;
-  rdfs:domain as:Collection ;
+  rdfs:domain as:CollectionPage ;
   rdfs:range [
     a owl:Class ;
-    owl:unionOf ( as:Collection as:Link )
+    owl:unionOf ( as:CollectionPage as:Link )
   ] .
 
 as:object a owl:ObjectProperty ;
@@ -233,10 +233,10 @@ as:anyOf a owl:ObjectProperty ;
 as:prev a owl:FunctionalProperty ,
           owl:ObjectProperty ;
   rdfs:label "prev"@en ;
-  rdfs:domain as:Collection ;
+  rdfs:domain as:CollectionPage ;
   rdfs:range [
     a owl:Class ;
-    owl:unionOf ( as:Collection as:Link )
+    owl:unionOf ( as:CollectionPage as:Link )
   ] .
 
 as:preview a owl:ObjectProperty ;
@@ -280,10 +280,10 @@ as:scope a owl:ObjectProperty ;
     owl:unionOf ( as:Object as:Link )
   ] .
 
-as:self a owl:FunctionalProperty ,
-          owl:ObjectProperty ;
-  rdfs:label "self"@en ;
-  rdfs:domain as:Collection ;
+as:partOf a owl:FunctionalProperty ,
+            owl:ObjectProperty ;
+  rdfs:label "partOf"@en ;
+  rdfs:domain as:CollectionPage ;
   rdfs:range [
     a owl:Class ;
     owl:unionOf ( as:Collection as:Link )
@@ -394,13 +394,6 @@ as:accuracy a owl:DatatypeProperty ,
     )
   ] .
 
-as:alias a owl:DatatypeProperty ,
-           owl:FunctionalProperty ;
-  rdfs:label "alias"@en ;
-  rdfs:comment "An alternative, domain specific alias for an object"@en ;
-  rdfs:range xsd:anyURI ;
-  rdfs:domain as:Object .
-
 as:altitude a owl:DatatypeProperty ,
       owl:FunctionalProperty ;
   rdfs:label "altitude"@en ;
@@ -439,10 +432,7 @@ as:duration a owl:DatatypeProperty ,
   owl:FunctionalProperty ;
   rdfs:label "duration"@en ;
   rdfs:comment "The duration of the object"@en ;
-  rdfs:range [
-    a owl:Class ;
-    owl:unionOf ( xsd:duration xsd:nonNegativeInteger )
-  ];
+  rdfs:range xsd:duration ;
   rdfs:domain [
     a owl:Class ;
     owl:unionOf ( as:Content as:Link )
@@ -490,13 +480,6 @@ as:id a owl:DatatypeProperty ,
     owl:unionOf (as:Link as:Object)
   ] .
 
-as:itemsPerPage a owl:DatatypeProperty ,
-          owl:FunctionalProperty ;
-  rdfs:label "itemsPerPage"@en ;
-  rdfs:comment "The maximum number of items per page in a logical Collection"@en ;
-  rdfs:range xsd:nonNegativeInteger ;
-  rdfs:domain as:Collection .
-
 as:latitude a owl:DatatypeProperty ,
       owl:FunctionalProperty ;
   rdfs:label "latitude"@en ;
@@ -516,7 +499,10 @@ as:mediaType a owl:DatatypeProperty ,
   rdfs:label "mediaType"@en ;
   rdfs:comment "The MIME Media Type"@en ;
   rdfs:range xsd:string ;
-  rdfs:domain as:Link .
+  rdfs:domain [
+    a owl:Class ;
+    owl:unionOf (as:Link as:Object)
+  ] .
 
 as:objectType a owl:DatatypeProperty ,
         owl:FunctionalProperty,
@@ -524,19 +510,6 @@ as:objectType a owl:DatatypeProperty ,
   rdfs:label "objectType"@en ;
   rdfs:range xsd:anyURI ;
   rdfs:domain as:Object .
-
-as:priority a owl:DatatypeProperty ,
-      owl:FunctionalProperty ;
-  rdfs:label "priority"@en ;
-  rdfs:comment "Specifies the relative priority of the Activity"@en ;
-  rdfs:domain as:Activity ;
-  rdfs:range [
-    a rdfs:Datatype ;
-    owl:onDatatype xsd:float ;
-    owl:withRestrictions (
-      [ xsd:minInclusive "0.0"^^xsd:float ]
-      [ xsd:maxInclusive "1.0"^^xsd:float ]
-    )] .
 
 as:published a owl:DatatypeProperty ,
       owl:FunctionalProperty ;
@@ -583,7 +556,7 @@ as:startIndex a owl:DatatypeProperty ,
   rdfs:label "startIndex"@en ;
   rdfs:comment "In a strictly ordered logical collection, specifies the index position of the first item in the items list"@en ;
   rdfs:range xsd:nonNegativeInteger ;
-  rdfs:domain as:OrderedCollection .
+  rdfs:domain as:OrderedCollectionPage .
 
 as:startTime a owl:DatatypeProperty ,
        owl:FunctionalProperty ;
@@ -746,6 +719,16 @@ as:Collection a owl:Class ;
   rdfs:subClassOf as:Object ;
   rdfs:comment "An ordered or unordered collection of Objects or Links"@en .
 
+as:CollectionPage a owl:Class ;
+  rdfs:label "CollectionPage"@en ;
+  rdfs:subClassOf as:Collection ;
+  rdfs:comment "A subset of items from a Collection"@en .
+
+as:OrderedCollectionPage a owl:Class ;
+  rdfs:label "OrderedCollectionPage"@en;
+  rdfs:subClassOf as:OrderedCollection, as:CollectionPage ;
+  rdfs:comment "An ordered subset of items from an OrderedCollection"@en .
+
 as:Relationship a owl:Class, rdf:Statement ;
   rdfs:label "Relationship"@en ;
   rdfs:subClassOf as:Object ;
@@ -831,24 +814,19 @@ as:Like a owl:Class ;
   rdfs:subClassOf as:Activity ;
   rdfs:comment "To Like Something"@en .
 
-as:Experience a owl:Class;
-  rdfs:label "Experience"@en ;
-  rdfs:subClassOf as:Activity ;
-  rdfs:comment "The actor experienced the object"@en .
-
 as:View a owl:Class ;
   rdfs:label "View"@en ;
-  rdfs:subClassOf as:Experience ;
+  rdfs:subClassOf as:Activity ;
   rdfs:comment "The actor viewed the object"@en .
 
 as:Listen a owl:Class ;
   rdfs:label "Listen"@en ;
-  rdfs:subClassOf as:Experience ;
+  rdfs:subClassOf as:Activity ;
   rdfs:comment "The actor listened to the object"@en .
 
 as:Read a owl:Class ;
   rdfs:label "Read"@en ;
-  rdfs:subClassOf as:Experience ;
+  rdfs:subClassOf as:Activity ;
   rdfs:comment "The actor read the object"@en .
 
 as:Move a owl:Class ;
@@ -958,11 +936,6 @@ as:Place a owl:Class ;
   rdfs:label "Place"@en ;
   rdfs:subClassOf as:Object ;
   rdfs:comment "A physical or logical location"@en .
-
-as:Process a owl:Class ;
-  rdfs:label "Process"@en ;
-  rdfs:subClassOf as:Actor ;
-  rdfs:comment "Any form of short or long running process"@en .
 
 as:Question a owl:Class ;
   rdfs:label "Question"@en;
